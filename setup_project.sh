@@ -20,6 +20,22 @@ PROJECT_DIR="attendance_tracker_${input}"
 ARCHIVE_NAME="${PROJECT_DIR}_archive.tar.gz"
 
 #Define Cleanup Login to handle when a user interrupts
+cleanup() {
+    echo ""
+    echo "An Interrupt has been detected. Archiving project..."
+
+    if [ -d "$PROJECT_DIR" ]; then
+        tar -czf "$ARCHIVE_NAME" "$PROJECT_DIR"
+        rm -rf "$PROJECT_DIR"
+        echo "Archive created and incomplete directory removed."
+    fi
+
+    exit 1
+}
+
+#if user presses CTRL+C run cleanup() function above
+trap cleanup SIGINT
+
 
 #Prevent Overwriting an Existing Directory
 if [ -d "$PROJECT_DIR" ]; then
