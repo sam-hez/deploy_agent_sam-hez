@@ -132,3 +132,13 @@ if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
 
     echo "Thresholds updated."
 fi
+
+#Environment Health Checkup
+echo "Performing environment health check..."
+
+if command -v python3 > /dev/null 2>&1; then
+    echo "Python3 found:"
+    python3 --version
+else
+    echo "WARNING: python3 is not installed."
+fi
