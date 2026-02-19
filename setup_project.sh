@@ -46,3 +46,69 @@ fi
 #Create the DIRECTORY STRUCTURE
 mkdir -p "$PROJECT_DIR/Helpers"
 mkdir -p "$PROJECT_DIR/reports"
+
+#CREATE THE REQUIRED FILES BELOW WITH THEIR DATA & RESPECTIVE DIRECTORIES
+#Create attendance_checker.py
+cat <<EOF > "$PROJECT_DIR/attendance_checker.py"
+import json
+import csv
+
+def load_config():
+    with open("Helpers/config.json") as f:
+        return json.load(f)
+
+def load_students():
+    with open("Helpers/assets.csv") as f:
+        reader = csv.DictReader(f)
+        return list(reader)
+
+def evaluate():
+    config = load_config()
+    students = load_students()
+
+    warning_threshold = config["warning"]
+    failure_threshold = config["failure"]
+
+    for student in students:
+        attendance = float(student["attendance"])
+
+        if attendance < failure_threshold:
+            status = "FAIL"
+        elif attendance < warning_threshold:
+            status = "WARNING"
+        else:
+            status = "PASS"
+
+        print(f"{student['name']} - {attendance}% - {status}")
+
+if __name__ == "__main__":
+    evaluate()
+EOF
+
+#Create config.json
+cat <<EOF > "$PROJECT_DIR/Helpers/config.json"
+{
+    "warning": 75,
+    "failure": 50
+}
+EOF
+
+#Create assets.csv
+cat <<EOF > "$PROJECT_DIR/Helpers/assets.csv"
+name,attendance
+Alice,82
+Bob,68
+Charlie,45
+Sam,92
+Robert,67
+Henry,22
+EOF
+
+#Create reports.log
+cat <<EOF > "$PROJECT_DIR/reports/reports.log"
+--- Attendance Report Run: 2026-02-06 18:10:01.468726 ---
+[2026-02-06 18:10:01.469363] ALERT SENT TO bob@example.com: URGENT: Bob Smith, your attendance is 46.7%. You will fail this class.
+[2026-02-06 18:10:01.469424] ALERT SENT TO charlie@example.com: URGENT: Charlie Davis, your attendance is 26.7%. You will fail this class.
+EOF
+
+
