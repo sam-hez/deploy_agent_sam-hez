@@ -127,8 +127,8 @@ if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
         failure=50
     fi
 
-    sed -i "s/\"warning\":.*/\"warning\": $warning,/" "$PROJECT_DIR/Helpers/config.json"
-    sed -i "s/\"failure\":.*/\"failure\": $failure/" "$PROJECT_DIR/Helpers/config.json"
+    sed -i '' "s/\"warning\":.*/\"warning\": $warning,/" "$PROJECT_DIR/Helpers/config.json"
+    sed -i '' "s/\"failure\":.*/\"failure\": $failure/" "$PROJECT_DIR/Helpers/config.json"
 
     echo "Thresholds updated."
 fi
