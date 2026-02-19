@@ -111,4 +111,24 @@ cat <<EOF > "$PROJECT_DIR/reports/reports.log"
 [2026-02-06 18:10:01.469424] ALERT SENT TO charlie@example.com: URGENT: Charlie Davis, your attendance is 26.7%. You will fail this class.
 EOF
 
+#NEXT > We ask the user to update the threshold that are in config.json
+read -p "IMPORTANT: Do you want to update attendance thresholds? (y/n): " choice
 
+if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
+
+    read -p "Enter new warning threshold (default 75): " warning
+    read -p "Enter new failure threshold (default 50): " failure
+
+    if [[ ! "$warning" =~ ^[0-9]+$ ]]; then
+        warning=75
+    fi
+
+    if [[ ! "$failure" =~ ^[0-9]+$ ]]; then
+        failure=50
+    fi
+
+    sed -i "s/\"warning\":.*/\"warning\": $warning,/" "$PROJECT_DIR/Helpers/config.json"
+    sed -i "s/\"failure\":.*/\"failure\": $failure/" "$PROJECT_DIR/Helpers/config.json"
+
+    echo "Thresholds updated."
+fi
