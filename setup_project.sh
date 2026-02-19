@@ -26,3 +26,7 @@ if [ -d "$PROJECT_DIR" ]; then
     echo "That directory already exists. Exiting to prevent overwrite."
     exit 1
 fi
+
+#Create the DIRECTORY STRUCTURE
+mkdir -p "$PROJECT_DIR/Helpers"
+mkdir -p "$PROJECT_DIR/reports"
