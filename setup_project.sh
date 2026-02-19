@@ -142,3 +142,8 @@ if command -v python3 > /dev/null 2>&1; then
 else
     echo "WARNING: python3 is not installed."
 fi
+
+#Final Completion message
+echo ""
+echo "Project setup completed successfully!"
+echo "Project directory: $PROJECT_DIR"
