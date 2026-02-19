@@ -1,5 +1,6 @@
 # Student Attendance Tracker Script Overview
 Author: Samuel Hezekiah Epodoi - C2 BSE
+VIDEOWALKTHROUGH: I have placed this in the comments section of my canvas submission
 
 A simple script that automatically creates the complete project structure for the Student Attendance Tracker.
 
